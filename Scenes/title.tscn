@@ -1,0 +1,77 @@
+[gd_scene load_steps=5 format=3 uid="uid://c1ijhy8usd4pm"]
+
+[ext_resource type="Texture2D" uid="uid://ct7otadts2yh7" path="res://Assets/Backgrounds/colored_grass.png" id="1_0gif5"]
+
+[sub_resource type="GDScript" id="GDScript_74kxm"]
+script/source = "extends CanvasLayer
+
+
+# Called when the node enters the scene tree for the first time.
+func _ready():
+	pass # Replace with function body.
+
+
+# Called every frame. 'delta' is the elapsed time since the previous frame.
+func _process(delta):
+	pass
+
+
+func _on_load_in_pressed():
+	LoadingHandler.load_scene(\"res://Scenes/demo_level.tscn\")
+"
+
+[sub_resource type="GDScript" id="GDScript_6upg3"]
+script/source = "extends ParallaxBackground
+
+var scrolling_speed : int = 100
+# Called when the node enters the scene tree for the first time.
+func _ready():
+	pass # Replace with function body.
+
+
+# Called every frame. 'delta' is the elapsed time since the previous frame.
+func _process(delta):
+	scroll_offset.x -= scrolling_speed * delta
+"
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_1wi4b"]
+bg_color = Color(0.262932, 0.262932, 0.262932, 1)
+border_width_left = 5
+border_width_top = 5
+border_width_right = 5
+border_width_bottom = 5
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+
+[node name="Title" type="CanvasLayer"]
+script = SubResource("GDScript_74kxm")
+
+[node name="ParallaxBackground" type="ParallaxBackground" parent="."]
+script = SubResource("GDScript_6upg3")
+
+[node name="ParallaxLayer" type="ParallaxLayer" parent="ParallaxBackground"]
+motion_mirroring = Vector2(1024, 0)
+
+[node name="Sprite2D" type="Sprite2D" parent="ParallaxBackground/ParallaxLayer"]
+position = Vector2(513, 512)
+texture = ExtResource("1_0gif5")
+
+[node name="Label" type="Label" parent="."]
+offset_left = 309.0
+offset_top = 180.0
+offset_right = 846.0
+offset_bottom = 320.0
+theme_override_font_sizes/font_size = 60
+text = "THE LOADING BAR"
+
+[node name="LoadIn" type="Button" parent="."]
+offset_left = 494.0
+offset_top = 372.0
+offset_right = 680.0
+offset_bottom = 422.0
+theme_override_styles/normal = SubResource("StyleBoxFlat_1wi4b")
+text = "Let's Load"
+
+[connection signal="pressed" from="LoadIn" to="." method="_on_load_in_pressed"]

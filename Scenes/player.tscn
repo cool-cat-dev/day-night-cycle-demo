@@ -1,0 +1,57 @@
+[gd_scene load_steps=8 format=3 uid="uid://cimlh81uygkxi"]
+
+[ext_resource type="Script" path="res://Scripts/Player.gd" id="1_cd4ck"]
+[ext_resource type="Texture2D" uid="uid://ctmo6ww52gmem" path="res://Assets/Players/128x256/Blue/alienBlue_stand.png" id="2_qh0s7"]
+[ext_resource type="Texture2D" uid="uid://bginx0v52mn17" path="res://Assets/Players/128x256/Blue/alienBlue_jump.png" id="3_q8epj"]
+[ext_resource type="Texture2D" uid="uid://cyg1j8a4jwkdx" path="res://Assets/Players/128x256/Blue/alienBlue_walk1.png" id="4_f4n3r"]
+[ext_resource type="Texture2D" uid="uid://bcjpgecrl02fq" path="res://Assets/Players/128x256/Blue/alienBlue_walk2.png" id="5_8ibn1"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_iuvjt"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_qh0s7")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("3_q8epj")
+}],
+"loop": true,
+"name": &"jump",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("4_f4n3r")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_8ibn1")
+}],
+"loop": true,
+"name": &"walk",
+"speed": 5.0
+}]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_4fstu"]
+radius = 31.0
+height = 160.0
+
+[node name="Player" type="CharacterBody2D"]
+z_index = 1
+script = ExtResource("1_cd4ck")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_iuvjt")
+animation = &"jump"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, 51)
+shape = SubResource("CapsuleShape2D_4fstu")
+
+[node name="Camera2D" type="Camera2D" parent="."]
+zoom = Vector2(0.7, 0.7)
+limit_left = 0
